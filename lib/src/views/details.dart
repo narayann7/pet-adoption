@@ -1,8 +1,11 @@
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/src/utils/constants.dart';
 import 'package:pet_adoption_app/src/views/common.dart';
 
-class PetDetailsView extends StatelessWidget {
+class PetDetailsView extends StatefulWidget {
   const PetDetailsView({Key? key}) : super(key: key);
   static const String routeName = '/petDetailsView';
 
@@ -15,11 +18,39 @@ class PetDetailsView extends StatelessWidget {
   }
 
   @override
+  State<PetDetailsView> createState() => _PetDetailsViewState();
+}
+
+class _PetDetailsViewState extends State<PetDetailsView> {
+  late ConfettiController _controllerCenterRight;
+  late ConfettiController _controllerCenterLeft;
+
+  @override
+  void initState() {
+    _controllerCenterRight =
+        ConfettiController(duration: const Duration(seconds: 1));
+    _controllerCenterLeft =
+        ConfettiController(duration: const Duration(seconds: 1));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: [
+          ConfettiWidget(
+            confettiController: _controllerCenterLeft,
+            blastDirection: 0, // radial value - RIGHT
+            emissionFrequency: 0.6,
+            minimumSize: const Size(10,
+                10), // set the minimum potential size for the confetti (width, height)
+            maximumSize: const Size(50,
+                50), // set the maximum potential size for the confetti (width, height)
+            numberOfParticles: 1,
+            gravity: 0.1,
+          ),
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -28,7 +59,7 @@ class PetDetailsView extends StatelessWidget {
                 Hero(
                   tag: "1234",
                   child: Container(
-                      height: MediaQuery.of(context).size.height * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.5,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
@@ -43,7 +74,7 @@ class PetDetailsView extends StatelessWidget {
             padding: const EdgeInsets.only(top: 42, left: 20),
             child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
               },
               child: Container(
                 height: 45,
@@ -92,11 +123,77 @@ class PetDetailsView extends StatelessWidget {
                         ],
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
-                        color: Colors.white,
+                        color: Theme.of(context).backgroundColor,
                       ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomText("Pet Name", fontSize: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20, top: 20),
+                                child: CustomText(
+                                  "Pet name (Dog)",
+                                  fontSize: 30,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 20, top: 20),
+                                child: CustomText(
+                                  "\$ 89",
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  Icons.location_on_outlined,
+                                  size: 20,
+                                ),
+                                CustomText(
+                                  "New York",
+                                  fontSize: 18,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .color!
+                                      .withOpacity(0.5),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              getSmallDetails(
+                                  context: context,
+                                  details: "Male",
+                                  title: "Sex"),
+                              getSmallDetails(
+                                  context: context, title: "Age", details: "2"),
+                              getSmallDetails(
+                                  context: context,
+                                  title: "Breed",
+                                  details: "Persion"),
+                              getSmallDetails(
+                                  context: context,
+                                  title: "Weight",
+                                  details: "20kg")
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -109,7 +206,13 @@ class PetDetailsView extends StatelessWidget {
                         fontSize: 20,
                       ),
                       subtitle: CustomText("Pet Owner",
-                          fontSize: 15, type: FontStyle.subtitle),
+                          color: Theme.of(context)
+                              .textTheme
+                              .headline1!
+                              .color!
+                              .withOpacity(0.5),
+                          fontSize: 15,
+                          type: FontStyle.subtitle),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -153,16 +256,65 @@ class PetDetailsView extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showAlertDialog(
+                            context,
+                            _controllerCenterLeft,
+                            _controllerCenterRight,
+                          );
+                          _controllerCenterLeft.play();
+                          _controllerCenterRight.play();
+                        });
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Center(
+                          child: CustomText(
+                            "Adopt Me",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).textTheme.headline1!.color,
+                          ),
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 )),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ConfettiWidget(
+              confettiController: _controllerCenterLeft,
+              blastDirection: 0, // radial value - RIGHT
+              emissionFrequency: 0.6,
+              minimumSize: const Size(10,
+                  10), // set the minimum potential size for the confetti (width, height)
+              maximumSize: const Size(50,
+                  50), // set the maximum potential size for the confetti (width, height)
+              numberOfParticles: 1,
+              gravity: 0.1,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: ConfettiWidget(
+              confettiController: _controllerCenterRight,
+              blastDirection: pi, // radial value - RIGHT
+              emissionFrequency: 0.6,
+              minimumSize: const Size(10,
+                  10), // set the minimum potential size for the confetti (width, height)
+              maximumSize: const Size(50,
+                  50), // set the maximum potential size for the confetti (width, height)
+              numberOfParticles: 1,
+              gravity: 0.1,
+            ),
           ),
           // )
         ],

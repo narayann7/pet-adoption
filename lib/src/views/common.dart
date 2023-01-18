@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
@@ -221,4 +224,80 @@ class SinglePet extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget getSmallDetails({
+  required BuildContext context,
+  required String title,
+  required String details,
+}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      CustomText(
+        details,
+        fontSize: 18,
+      ),
+      CustomText(
+        title,
+        fontSize: 15,
+        color: Theme.of(context).textTheme.headline1!.color!.withOpacity(0.5),
+      ),
+    ],
+  );
+}
+
+showAlertDialog(BuildContext context, ConfettiController controllerCenterRight,
+    ConfettiController controllerCenterLeft) {
+  // set up the button
+  Widget okButton = const Text("OK");
+
+  // set up the AlertDialog
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Stack(
+        children: [
+          AlertDialog(
+            title: const Text("My title"),
+            content: const Text("This is my message."),
+            actions: [
+              okButton,
+            ],
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ConfettiWidget(
+              confettiController: controllerCenterLeft,
+              blastDirection: 0, // radial value - RIGHT
+              emissionFrequency: 0.6,
+              minimumSize: const Size(10,
+                  10), // set the minimum potential size for the confetti (width, height)
+              maximumSize: const Size(50,
+                  50), // set the maximum potential size for the confetti (width, height)
+              numberOfParticles: 1,
+              gravity: 0.1,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: ConfettiWidget(
+              confettiController: controllerCenterRight,
+              blastDirection: pi, // radial value - RIGHT
+              emissionFrequency: 0.6,
+              minimumSize: const Size(10,
+                  10), // set the minimum potential size for the confetti (width, height)
+              maximumSize: const Size(50,
+                  50), // set the maximum potential size for the confetti (width, height)
+              numberOfParticles: 1,
+              gravity: 0.1,
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
