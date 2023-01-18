@@ -11,6 +11,8 @@ dependencies:
   flutter_bloc: ^8.1.1
   flutter_svg: ^1.1.6
   google_fonts: ^3.0.1
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.0.16
 
 dev_dependencies:
   flutter_test:

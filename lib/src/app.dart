@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_adoption_app/src/utils/coustom_routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -6,11 +7,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      title: 'Pet Adoption App',
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/",
+      onGenerateRoute: CustomRoutes.generateRoute,
     );
   }
 }

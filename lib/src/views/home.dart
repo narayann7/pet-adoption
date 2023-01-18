@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
-  static const String routeName = '/HomeView';
+  static const String routeName = '/';
 
   static getNavigator() {
     return MaterialPageRoute(
-        settings: const RouteSettings(name: "/HomeView"),
+        settings: const RouteSettings(name: "/"),
         builder: (c) {
           return const HomeView();
         });
