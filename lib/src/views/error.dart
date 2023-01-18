@@ -4,7 +4,7 @@ class ErrorView extends StatelessWidget {
   const ErrorView({Key? key}) : super(key: key);
   static const String routeName = '/ErrorView';
 
-  static getNavigator() {
+  static MaterialPageRoute getNavigator() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/ErrorView"),
         builder: (c) {

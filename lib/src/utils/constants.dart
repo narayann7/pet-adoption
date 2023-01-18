@@ -6,3 +6,4 @@ const Color text = Color(0xfff2f2f2);
 const Color text2 = Color(0xffbababa);
 const Color white = Color(0xffffffff);
 const mythemekey = "myTheme";
+const appFont = 'Poppins';

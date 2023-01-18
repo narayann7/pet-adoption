@@ -4,7 +4,7 @@ class PetDetailsView extends StatelessWidget {
   const PetDetailsView({Key? key}) : super(key: key);
   static const String routeName = '/PetDetailsView';
 
-  static getNavigator() {
+  static MaterialPageRoute getNavigator() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/PetDetailsView"),
         builder: (c) {

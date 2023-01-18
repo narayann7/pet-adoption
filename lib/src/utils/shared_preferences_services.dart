@@ -14,7 +14,7 @@ class SharedPreferencesService {
     return pref;
   }
 
-  static saveTheme({required bool isDark}) async {
+  static void saveTheme({required bool isDark}) async {
     SharedPreferences pref = await getSP();
     pref.setBool(mythemekey, isDark);
   }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/src/utils/shared_preferences_services.dart';
@@ -11,11 +13,12 @@ class AppThemeCubit extends Cubit<AppThemeState> {
   void toggleTheme() async {
     bool? isDark = await SharedPreferencesService.getTheme();
     isDark = !isDark!;
-    await SharedPreferencesService.saveTheme(isDark: isDark);
+    log("isDark: $isDark");
+    SharedPreferencesService.saveTheme(isDark: isDark);
     if (isDark) {
       emit(AppThemeState(
         isDark: isDark,
-        currentTheme: AppTheme.darkTheme,
+        currentTheme: AppTheme.lightTheme,
       ));
     } else {
       emit(AppThemeState(

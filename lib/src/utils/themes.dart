@@ -10,7 +10,7 @@ class AppTheme {
     dividerColor: const Color(0xffDCE3EB),
     iconTheme: const IconThemeData(color: Color(0xff333F52)),
     textTheme: const TextTheme(
-      headline1: TextStyle(color: Color(0xff1F2E35)),
+      headline1: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
       headline2: TextStyle(color: Color(0xff333F52)),
       subtitle1: TextStyle(color: Color(0xff747C88)),
       subtitle2: TextStyle(color: Color(0xffABB2B9)),

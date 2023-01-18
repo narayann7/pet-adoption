@@ -4,7 +4,7 @@ class HistoryView extends StatelessWidget {
   const HistoryView({Key? key}) : super(key: key);
   static const String routeName = '/HistoryView';
 
-  static getNavigator() {
+  static MaterialPageRoute getNavigator() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/HistoryView"),
         builder: (c) {
