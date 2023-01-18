@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 void moveToNextScreen(BuildContext context, String screen) {
   Navigator.of(context).pushNamed(screen);
@@ -11,15 +9,7 @@ void moveToNextScreenWithArguments(
   Navigator.of(context).pushNamed(screen, arguments: arguments);
 }
 
-mainInit() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-}
 
 // getToast(
 //   BuildContext context,
