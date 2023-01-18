@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_adoption_app/src/controllers/cubit/app_theme_cubit.dart';
-import 'package:pet_adoption_app/src/utils/common_function.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
+import 'package:pet_adoption_app/src/views/common.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
-  static const String routeName = '/';
+  static const String routeName = '/home';
 
   static MaterialPageRoute getNavigator() {
     return MaterialPageRoute(
-        settings: const RouteSettings(name: "/"),
+        settings: const RouteSettings(name: "/home"),
         builder: (c) {
           return BlocProvider(
-              create: (context) => AppThemeCubit(), child: const HomeView());
+              create: (context) => AppGlobalCubit(), child: const HomeView());
         });
   }
 
@@ -21,65 +22,135 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _currIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppThemeCubit, AppThemeState>(
+    return BlocBuilder<AppGlobalCubit, AppGlobalState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
             backgroundColor: Theme.of(context).backgroundColor,
-            elevation: 0,
-            title: Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-              child: AppText(
-                'Good Morning',
-                type: FontStyle.appbarTitle,
-                fontSize: 30,
-                color: Theme.of(context).textTheme.headline1!.color,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            actions: [
-              IconButton(
-                icon: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    transitionBuilder: (child, anim) => RotationTransition(
-                          turns: child.key == const ValueKey('icon1')
-                              ? Tween<double>(begin: 1, end: 0.75).animate(anim)
-                              : Tween<double>(begin: 0.75, end: 1)
-                                  .animate(anim),
-                          child: FadeTransition(opacity: anim, child: child),
+            appBar: const CustomAppBar(),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.transparent,
+                      height: MediaQuery.of(context).size.height * 0.27,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              "Find your pet",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                children: const [
+                                  Icon(LineIcons.search),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          hintText: "Search",
+                                          border: InputBorder.none),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            CustomText(
+                              "Pet Categories",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 100,
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 10),
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.pink,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 10),
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.pink,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 10),
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.pink,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 10),
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.pink,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                    child: _currIndex == 0
-                        ? const Icon(Icons.sunny,
-                            color: Colors.black, key: ValueKey('icon1'))
-                        : const Icon(
-                            Icons.nightlight_round,
-                            color: Colors.black,
-                            key: ValueKey('icon2'),
-                          )),
-                onPressed: () {
-                  setState(() {
-                    _currIndex = _currIndex == 0 ? 1 : 0;
-                  });
-                },
-              )
-            ],
-          ),
-          body: Center(
-            child: GestureDetector(
-              onTap: () {
-                context.read<AppThemeCubit>().toggleTheme();
-                // moveToNextScreen(context, PetDetailsView.routeName);
-              },
-              child: Chip(
-                label: Text(state.isDark.toString()),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.65,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          SinglePet(onTap: () {}),
+                          SinglePet(onTap: () {}),
+                          SinglePet(onTap: () {}),
+                          SinglePet(onTap: () {}),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ), // Cente
-        );
+            ) // Cente
+            );
       },
     );
   }

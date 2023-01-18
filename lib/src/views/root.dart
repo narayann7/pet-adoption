@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:pet_adoption_app/src/controllers/cubit/app_theme_cubit.dart';
+import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
 import 'package:pet_adoption_app/src/views/history.dart';
 import 'package:pet_adoption_app/src/views/home.dart';
 
 class Root extends StatefulWidget {
   const Root({Key? key}) : super(key: key);
-  static const String routeName = '/Root';
+  static const String routeName = '/';
 
   static MaterialPageRoute getNavigator() {
     return MaterialPageRoute(
-        settings: const RouteSettings(name: "/Root"),
+        settings: const RouteSettings(name: "/"),
         builder: (c) {
           return BlocProvider(
-              create: (context) => AppThemeCubit(), child: const Root());
+              create: (context) => AppGlobalCubit(), child: const Root());
         });
   }
 
@@ -24,7 +24,6 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
-  int _selectedIndex = 0;
   final List<Widget> _tabs = [const HomeView(), const HistoryView()];
   final List<GButton> _tabsIcons = const [
     GButton(
@@ -39,14 +38,17 @@ class _RootState extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppThemeCubit, AppThemeState>(
+    return BlocBuilder<AppGlobalCubit, AppGlobalState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           body: Center(
-            child: _tabs.elementAt(_selectedIndex),
+            child: _tabs.elementAt(state.buttomNavIndex),
           ),
-          bottomNavigationBar: Container(
-            width: MediaQuery.of(context).size.width * 0.5,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: Container(
+            width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 25),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -73,11 +75,9 @@ class _RootState extends State<Root> {
                 tabBackgroundColor: Colors.grey[100]!,
                 color: Colors.black,
                 tabs: _tabsIcons,
-                selectedIndex: _selectedIndex,
+                selectedIndex: state.buttomNavIndex,
                 onTabChange: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
+                  context.read<AppGlobalCubit>().changeBottomNavIndex(index);
                 },
               ),
             ),
