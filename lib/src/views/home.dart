@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
+import 'package:pet_adoption_app/src/utils/common_function.dart';
 import 'package:pet_adoption_app/src/views/common.dart';
+import 'package:pet_adoption_app/src/views/details.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -139,10 +141,9 @@ class _HomeViewState extends State<HomeView> {
                         physics: const BouncingScrollPhysics(),
                         // ignore: prefer_const_literals_to_create_immutables
                         children: [
-                          SinglePet(onTap: () {}),
-                          SinglePet(onTap: () {}),
-                          SinglePet(onTap: () {}),
-                          SinglePet(onTap: () {}),
+                          SinglePet(onTap: () {
+                            moveToNextScreen(context, PetDetailsView.routeName);
+                          }),
                         ],
                       ),
                     ),

@@ -8,6 +8,8 @@ class AppTheme {
     primaryColorDark: const Color(0xff2C3E50),
     cardColor: const Color(0xffFFFFFF),
     dividerColor: const Color(0xffDCE3EB),
+    bottomSheetTheme:
+        BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
     iconTheme: const IconThemeData(color: Color(0xff333F52)),
     textTheme: const TextTheme(
       headline1: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
@@ -25,6 +27,8 @@ class AppTheme {
     iconTheme: const IconThemeData(color: Color(0xffffffff)),
     backgroundColor: const Color(0xff171820),
     cardColor: const Color(0xff22232E),
+    bottomSheetTheme:
+        BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
     textTheme: const TextTheme(
       headline1: TextStyle(color: Color(0xffFFFFFF)),
       headline2: TextStyle(color: Color(0xffFFFFFF)),

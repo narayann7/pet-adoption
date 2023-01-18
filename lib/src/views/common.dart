@@ -61,22 +61,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(70);
-}
-// ignore: constant_identifier_names
-
-enum FontStyle {
-  heading,
-  heading2,
-  subheading,
-  title,
-  subtitle,
-  boldTitle,
-  boldSubtitle,
-  appbarTitle,
-  h14,
-  h16
 }
 
 class CustomText extends StatelessWidget {
@@ -103,7 +88,7 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var style = getStyle(type);
+    var style = getStyle(context, type);
 
     return Text(
       text.toString(),
@@ -114,34 +99,34 @@ class CustomText extends StatelessWidget {
     );
   }
 
-  TextStyle getStyle(FontStyle? type) {
+  TextStyle getStyle(BuildContext context, FontStyle? type) {
     switch (type) {
       case FontStyle.heading:
         return GoogleFonts.getFont(appFont).copyWith(
             fontSize: fontSize ?? 22,
-            color: color ?? Colors.black,
+            color: color ?? Theme.of(context).textTheme.headline1!.color,
             letterSpacing: 0.8,
             fontWeight: fontWeight ?? FontWeight.bold);
       case FontStyle.heading2:
         return GoogleFonts.getFont(appFont).copyWith(
             fontSize: fontSize ?? 19,
-            color: color ?? Colors.black,
+            color: color ?? Theme.of(context).textTheme.headline1!.color,
             letterSpacing: 0.8,
             fontWeight: fontWeight ?? FontWeight.bold);
       case FontStyle.title:
         return GoogleFonts.getFont(appFont).copyWith(
             fontSize: fontSize ?? 16,
-            color: color ?? Colors.black,
+            color: color ?? Theme.of(context).textTheme.headline1!.color,
             fontWeight: fontWeight ?? FontWeight.w500);
       case FontStyle.subheading:
         return GoogleFonts.getFont(appFont).copyWith(
             fontSize: fontSize ?? 18,
-            color: color ?? Colors.black,
+            color: color ?? Theme.of(context).textTheme.headline1!.color,
             fontWeight: fontWeight ?? FontWeight.w500);
       case FontStyle.boldTitle:
         return GoogleFonts.getFont(appFont).copyWith(
             fontSize: fontSize ?? 18,
-            color: color ?? Colors.black,
+            color: color ?? Theme.of(context).textTheme.headline1!.color,
             fontWeight: fontWeight ?? FontWeight.bold);
       case FontStyle.subtitle:
         return GoogleFonts.getFont(appFont).copyWith(
@@ -155,7 +140,7 @@ class CustomText extends StatelessWidget {
             fontWeight: fontWeight ?? FontWeight.bold);
       default:
         return GoogleFonts.getFont(appFont).copyWith(
-          color: color ?? Colors.black,
+          color: color ?? Theme.of(context).textTheme.headline1!.color,
           fontWeight: fontWeight ?? FontWeight.normal,
           fontSize: fontSize ?? 17,
         );
@@ -185,14 +170,17 @@ class SinglePet extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Container(
-                height: 300,
-                width: width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    image: const DecorationImage(
-                        image: AssetImage("lib/assets/images/dog1.jpg"),
-                        fit: BoxFit.cover))),
+            Hero(
+              tag: "1234",
+              child: Container(
+                  height: 300,
+                  width: width,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      image: const DecorationImage(
+                          image: AssetImage("lib/assets/images/dog1.jpg"),
+                          fit: BoxFit.cover))),
+            ),
             Positioned(
               bottom: 0,
               child: GlassContainer(

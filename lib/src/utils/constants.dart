@@ -7,3 +7,16 @@ const Color text2 = Color(0xffbababa);
 const Color white = Color(0xffffffff);
 const mythemekey = "myTheme";
 const appFont = 'Poppins';
+
+enum FontStyle {
+  heading,
+  heading2,
+  subheading,
+  title,
+  subtitle,
+  boldTitle,
+  boldSubtitle,
+  appbarTitle,
+  h14,
+  h16
+}
