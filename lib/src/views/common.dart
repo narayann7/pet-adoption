@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pet_adoption_app/src/models/pet_data_model.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
 import 'package:pet_adoption_app/src/utils/common_function.dart';
 import 'package:pet_adoption_app/src/utils/constants.dart';
-import 'package:shimmer/shimmer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
@@ -155,9 +156,10 @@ class CustomText extends StatelessWidget {
 class SinglePet extends StatelessWidget {
   const SinglePet({
     Key? key,
+    required this.petDataModel,
     this.onTap,
   }) : super(key: key);
-
+  final PetDataModel petDataModel;
   final GestureTapCallback? onTap;
 
   @override
@@ -319,16 +321,21 @@ showAlertDialog(BuildContext context, ConfettiController controllerCenterRight,
 }
 
 Widget petShimmerCard(BuildContext context) {
-  return Shimmer.fromColors(
-      baseColor: Colors.grey[300] as Color,
-      highlightColor: Colors.grey[400] as Color,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 20),
-        height: 250,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadiusDirectional.circular(30),
-            border: Border.all(color: Colors.grey)),
-      ));
+  return ListView.builder(
+      itemCount: 10,
+      physics: const BouncingScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+            baseColor: Colors.grey[300] as Color,
+            highlightColor: Colors.grey[400] as Color,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              height: 250,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadiusDirectional.circular(30),
+                  border: Border.all(color: Colors.grey)),
+            ));
+      });
 }

@@ -1,5 +1,6 @@
 const mythemekey = "myTheme";
 const appFont = 'Poppins';
+const String petDb = "USER_DB";
 
 enum FontStyle {
   heading,
@@ -12,4 +13,11 @@ enum FontStyle {
   appbarTitle,
   h14,
   h16
+}
+
+enum AppState {
+  inital,
+  loading,
+  success,
+  error,
 }

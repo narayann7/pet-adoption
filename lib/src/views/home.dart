@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
-import 'package:pet_adoption_app/src/utils/common_function.dart';
+import 'package:pet_adoption_app/src/controllers/pets_cubit/pets_cubit.dart';
 import 'package:pet_adoption_app/src/views/common.dart';
-import 'package:pet_adoption_app/src/views/details.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -14,7 +13,8 @@ class HomeView extends StatefulWidget {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/home"),
         builder: (c) {
-          return const HomeView();
+          return BlocProvider(
+              create: (context) => PetsCubit(), child: const HomeView());
         });
   }
 
@@ -29,6 +29,15 @@ class _HomeViewState extends State<HomeView> {
     "Name",
   ];
   String dropdownvalue = 'Breed';
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<PetsCubit>().getDataFromApi();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppGlobalCubit, AppGlobalState>(
@@ -125,19 +134,22 @@ class _HomeViewState extends State<HomeView> {
                                 physics: const BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 10),
-                                    height: 20,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Center(
-                                      child: CustomText(
-                                        "Dog",
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
+                                  GestureDetector(
+                                    onTap: () async {},
+                                    child: Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      height: 20,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context).primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Center(
+                                        child: CustomText(
+                                          "Dog",
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -171,13 +183,15 @@ class _HomeViewState extends State<HomeView> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.65,
                       width: MediaQuery.of(context).size.width,
-                      child: ListView(
+                      child:
+                          // petShimmerCard(context),
+
+                          ListView(
                         physics: const BouncingScrollPhysics(),
-                        children: [
-                          SinglePet(onTap: () {
-                            moveToNextScreen(context, PetDetailsView.routeName);
-                          }),
-                          petShimmerCard(context),
+                        children: const [
+                          // SinglePet(onTap: () {
+                          //   moveToNextScreen(context, PetDetailsView.routeName);
+                          // }),
                         ],
                       ),
                     ),

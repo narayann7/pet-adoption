@@ -1,17 +1,21 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_adoption_app/src/models/pet_data_model.dart';
 import 'package:pet_adoption_app/src/utils/constants.dart';
 import 'package:pet_adoption_app/src/views/common.dart';
 
 class PetDetailsView extends StatefulWidget {
-  const PetDetailsView({Key? key}) : super(key: key);
+  const PetDetailsView({Key? key, required this.petDataModel})
+      : super(key: key);
   static const String routeName = '/petDetailsView';
-
-  static MaterialPageRoute getNavigator() {
+  final PetDataModel petDataModel;
+  static MaterialPageRoute getNavigator(PetDataModel petDataModel) {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/petDetailsView"),
         builder: (c) {
-          return const PetDetailsView();
+          return PetDetailsView(
+            petDataModel: petDataModel,
+          );
         });
   }
 
