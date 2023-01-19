@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/src/utils/constants.dart';
@@ -40,17 +38,6 @@ class _PetDetailsViewState extends State<PetDetailsView> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: [
-          ConfettiWidget(
-            confettiController: _controllerCenterLeft,
-            blastDirection: 0, // radial value - RIGHT
-            emissionFrequency: 0.6,
-            minimumSize: const Size(10,
-                10), // set the minimum potential size for the confetti (width, height)
-            maximumSize: const Size(50,
-                50), // set the maximum potential size for the confetti (width, height)
-            numberOfParticles: 1,
-            gravity: 0.1,
-          ),
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -74,13 +61,12 @@ class _PetDetailsViewState extends State<PetDetailsView> {
             padding: const EdgeInsets.only(top: 42, left: 20),
             child: GestureDetector(
               onTap: () {
-                // Navigator.pop(context);
+                Navigator.pop(context);
               },
               child: Container(
                 height: 45,
                 width: 45,
                 decoration: BoxDecoration(
-                  // shape: BoxShape.circle,
                   borderRadius: BorderRadius.circular(12),
                   color: Theme.of(context).backgroundColor.withOpacity(0.7),
                 ),
@@ -114,13 +100,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                       height: MediaQuery.of(context).size.height * 0.2,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.18),
-                              blurRadius: 20,
-                              spreadRadius: 5,
-                              offset: const Offset(0, 0))
-                        ],
+                        boxShadow: kElevationToShadow[8],
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
                         color: Theme.of(context).backgroundColor,
@@ -216,38 +196,32 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              height: 45,
-                              width: 45,
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: Color(0xffddedc9)),
-                              child: const Icon(Icons.call,
-                                  size: 25, color: Color(0xff2a5406)),
-                            ),
+                          Container(
+                            height: 45,
+                            width: 45,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                                color: Color(0xffddedc9)),
+                            child: const Icon(Icons.call,
+                                size: 25, color: Color(0xff2a5406)),
                           ),
                           const SizedBox(
                             width: 10,
                           ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              height: 45,
-                              width: 45,
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: Color(0xffd6d6f7)),
-                              child: const Icon(
-                                Icons.message,
-                                size: 25,
-                                color: Color(0xff0702b0),
-                              ),
+                          Container(
+                            height: 45,
+                            width: 45,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                                color: Color(0xffd6d6f7)),
+                            child: const Icon(
+                              Icons.message,
+                              size: 25,
+                              color: Color(0xff0702b0),
                             ),
                           ),
                         ],
@@ -288,34 +262,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                   ],
                 )),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: ConfettiWidget(
-              confettiController: _controllerCenterLeft,
-              blastDirection: 0, // radial value - RIGHT
-              emissionFrequency: 0.6,
-              minimumSize: const Size(10,
-                  10), // set the minimum potential size for the confetti (width, height)
-              maximumSize: const Size(50,
-                  50), // set the maximum potential size for the confetti (width, height)
-              numberOfParticles: 1,
-              gravity: 0.1,
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: ConfettiWidget(
-              confettiController: _controllerCenterRight,
-              blastDirection: pi, // radial value - RIGHT
-              emissionFrequency: 0.6,
-              minimumSize: const Size(10,
-                  10), // set the minimum potential size for the confetti (width, height)
-              maximumSize: const Size(50,
-                  50), // set the maximum potential size for the confetti (width, height)
-              numberOfParticles: 1,
-              gravity: 0.1,
-            ),
-          ),
+
           // )
         ],
       ),

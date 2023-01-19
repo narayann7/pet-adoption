@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
 import 'package:pet_adoption_app/src/utils/common_function.dart';
 import 'package:pet_adoption_app/src/utils/constants.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
@@ -213,9 +214,26 @@ class SinglePet extends StatelessWidget {
                             offset: const Offset(0, 3),
                           ),
                         ]),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomText(
+                            "Lucky (Labrador)",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          CustomText(
+                            "\$89",
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
+                      ),
                     )),
               ),
             ),
@@ -300,4 +318,86 @@ showAlertDialog(BuildContext context, ConfettiController controllerCenterRight,
       );
     },
   );
+}
+
+Widget petShimmerCard(BuildContext context) {
+  return Shimmer.fromColors(
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadiusDirectional.circular(30),
+            border: Border.all(color: Colors.grey)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+                margin: const EdgeInsets.only(
+                    left: 15, right: 15, bottom: 5, top: 7),
+                height: 17,
+                width: MediaQuery.of(context).size.width * 0.3,
+                color: Colors.grey),
+            const SizedBox(
+              height: 5,
+            ),
+            Container(
+                margin: const EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  bottom: 5,
+                ),
+                height: 17,
+                width: MediaQuery.of(context).size.width * 0.45,
+                color: Colors.grey),
+            const SizedBox(
+              height: 5,
+            ),
+            Container(
+                margin: const EdgeInsets.only(
+                    left: 15, right: 15, bottom: 5, top: 7),
+                height: 17,
+                width: MediaQuery.of(context).size.width * 0.4,
+                color: Colors.grey),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                  height: 25,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadiusDirectional.circular(5),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.2,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                  height: 25,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadiusDirectional.circular(5),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                  height: 25,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadiusDirectional.circular(5),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ));
 }

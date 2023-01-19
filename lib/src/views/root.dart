@@ -41,6 +41,7 @@ class _RootState extends State<Root> {
     return BlocBuilder<AppGlobalCubit, AppGlobalState>(
       builder: (context, state) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).backgroundColor,
           body: Center(
             child: _tabs.elementAt(state.buttomNavIndex),

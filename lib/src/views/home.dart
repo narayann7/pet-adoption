@@ -24,6 +24,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  List<String> filter = [
+    "Breed",
+    "Age",
+    "Name",
+  ];
+  String dropdownvalue = 'Breed';
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppGlobalCubit, AppGlobalState>(
@@ -36,13 +42,14 @@ class _HomeViewState extends State<HomeView> {
               child: SingleChildScrollView(
                 physics: const NeverScrollableScrollPhysics(),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
                       color: Colors.transparent,
-                      height: MediaQuery.of(context).size.height * 0.27,
+                      height: MediaQuery.of(context).size.height * 0.233,
                       child: SingleChildScrollView(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomText(
@@ -54,24 +61,51 @@ class _HomeViewState extends State<HomeView> {
                               height: 15,
                             ),
                             Container(
+                              height: 50,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Row(
-                                children: const [
-                                  Icon(LineIcons.search),
-                                  SizedBox(
+                                children: [
+                                  const Icon(LineIcons.search),
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Expanded(
+                                  const Expanded(
                                     child: TextField(
                                       decoration: InputDecoration(
                                           hintText: "Search",
                                           border: InputBorder.none),
                                     ),
-                                  )
+                                  ),
+                                  const Spacer(),
+                                  DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      value: dropdownvalue,
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 16),
+                                      elevation: 16,
+                                      enableFeedback: true,
+                                      icon: const Icon(
+                                        LineIcons.filter,
+                                        size: 22,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10),
+                                      items: filter.map((String items) {
+                                        return DropdownMenuItem(
+                                          value: items,
+                                          child: CustomText(items),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          dropdownvalue = newValue!;
+                                        });
+                                      },
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -87,46 +121,46 @@ class _HomeViewState extends State<HomeView> {
                               height: 10,
                             ),
                             SizedBox(
-                              height: 100,
+                              height: 40,
                               child: ListView(
                                 physics: const BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 children: [
                                   Container(
                                     margin: const EdgeInsets.only(right: 10),
-                                    height: 100,
+                                    height: 20,
                                     width: 100,
                                     decoration: BoxDecoration(
-                                        color: Colors.pink,
+                                        color: Theme.of(context).primaryColor,
                                         borderRadius:
-                                            BorderRadius.circular(10)),
+                                            BorderRadius.circular(15)),
+                                    child: Center(
+                                      child: CustomText(
+                                        "Dog",
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                      ),
+                                    ),
                                   ),
                                   Container(
                                     margin: const EdgeInsets.only(right: 10),
-                                    height: 100,
+                                    height: 20,
                                     width: 100,
                                     decoration: BoxDecoration(
-                                        color: Colors.pink,
+                                        color: Colors.grey[200],
+                                        border: Border.all(
+                                            color:
+                                                Theme.of(context).dividerColor),
                                         borderRadius:
-                                            BorderRadius.circular(10)),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 10),
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                        color: Colors.pink,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 10),
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                        color: Colors.pink,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                            BorderRadius.circular(15)),
+                                    child: Center(
+                                      child: CustomText(
+                                        "Dog",
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.grey[600],
+                                        fontSize: 15,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -137,13 +171,14 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.65,
+                      width: MediaQuery.of(context).size.width,
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
-                        // ignore: prefer_const_literals_to_create_immutables
                         children: [
                           SinglePet(onTap: () {
                             moveToNextScreen(context, PetDetailsView.routeName);
                           }),
+                          petShimmerCard(context),
                         ],
                       ),
                     ),
