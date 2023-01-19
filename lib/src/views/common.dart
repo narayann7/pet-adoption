@@ -280,12 +280,10 @@ showAlertDialog(BuildContext context, ConfettiController controllerCenterRight,
       return Stack(
         children: [
           AlertDialog(
-            title: const Text("My title"),
-            content: const Text("This is my message."),
-            actions: [
-              okButton,
-            ],
-          ),
+              content: CustomText("You have successfully booked the pet name!"),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              )),
           Align(
             alignment: Alignment.centerLeft,
             child: ConfettiWidget(
@@ -322,82 +320,15 @@ showAlertDialog(BuildContext context, ConfettiController controllerCenterRight,
 
 Widget petShimmerCard(BuildContext context) {
   return Shimmer.fromColors(
-      baseColor: Colors.grey.shade200,
-      highlightColor: Colors.grey.shade100,
+      baseColor: Colors.grey[300] as Color,
+      highlightColor: Colors.grey[400] as Color,
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
-        height: MediaQuery.of(context).size.height * 0.2,
+        height: 250,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadiusDirectional.circular(30),
             border: Border.all(color: Colors.grey)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-                margin: const EdgeInsets.only(
-                    left: 15, right: 15, bottom: 5, top: 7),
-                height: 17,
-                width: MediaQuery.of(context).size.width * 0.3,
-                color: Colors.grey),
-            const SizedBox(
-              height: 5,
-            ),
-            Container(
-                margin: const EdgeInsets.only(
-                  left: 15,
-                  right: 15,
-                  bottom: 5,
-                ),
-                height: 17,
-                width: MediaQuery.of(context).size.width * 0.45,
-                color: Colors.grey),
-            const SizedBox(
-              height: 5,
-            ),
-            Container(
-                margin: const EdgeInsets.only(
-                    left: 15, right: 15, bottom: 5, top: 7),
-                height: 17,
-                width: MediaQuery.of(context).size.width * 0.4,
-                color: Colors.grey),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
-                  height: 25,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadiusDirectional.circular(5),
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.2,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
-                  height: 25,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadiusDirectional.circular(5),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
-                  height: 25,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadiusDirectional.circular(5),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
       ));
 }

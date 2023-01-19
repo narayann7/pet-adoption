@@ -12,10 +12,12 @@ class AppGlobalState {
     required this.buttomNavIndex,
   });
 
-  factory AppGlobalState.initial() {
+  factory AppGlobalState.initial({
+    bool isDark = false,
+  }) {
     return AppGlobalState(
-      isDark: false,
-      currentTheme: AppTheme.lightTheme,
+      isDark: isDark,
+      currentTheme: isDark ? AppTheme.darkTheme : AppTheme.lightTheme,
       buttomNavIndex: 0,
     );
   }

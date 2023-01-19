@@ -14,8 +14,7 @@ class Root extends StatefulWidget {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/"),
         builder: (c) {
-          return BlocProvider(
-              create: (context) => AppGlobalCubit(), child: const Root());
+          return const Root();
         });
   }
 

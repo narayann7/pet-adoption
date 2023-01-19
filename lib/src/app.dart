@@ -10,7 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_adoption_app/src/views/root.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key, this.isDark});
+  final bool? isDark;
   static Future myAppInit() async {
     WidgetsFlutterBinding.ensureInitialized();
     Directory path = await getApplicationSupportDirectory();
@@ -24,7 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AppGlobalCubit())],
+      providers: [
+        BlocProvider(create: (context) {
+          return AppGlobalCubit(AppGlobalState.initial(isDark: isDark as bool));
+        })
+      ],
       child: BlocBuilder<AppGlobalCubit, AppGlobalState>(
         builder: (context, state) {
           return MaterialApp(

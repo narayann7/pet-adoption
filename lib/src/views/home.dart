@@ -14,8 +14,7 @@ class HomeView extends StatefulWidget {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/home"),
         builder: (c) {
-          return BlocProvider(
-              create: (context) => AppGlobalCubit(), child: const HomeView());
+          return const HomeView();
         });
   }
 
