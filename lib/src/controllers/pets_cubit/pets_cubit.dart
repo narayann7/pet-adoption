@@ -16,7 +16,7 @@ class PetsCubit extends Cubit<PetsState> {
     emit(state.copyWith(loadState: AppState.loading));
     try {
       //asynchronous delay
-      Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 3));
       String data =
           await rootBundle.loadString("lib/assets/database/pets.json");
       final petsjsonDecoded = jsonDecode(data);
@@ -24,7 +24,8 @@ class PetsCubit extends Cubit<PetsState> {
       for (var i = 0; i < petsjsonDecoded.length; i++) {
         pets.add(PetDataModel.fromJson(petsjsonDecoded[i]));
       }
-      emit(state.copyWith(allPets: pets, loadState: AppState.success));
+      emit(state.copyWith(
+          allPets: pets, allPetsViewList: pets, loadState: AppState.success));
     } catch (e) {
       emit(state.copyWith(loadState: AppState.error));
     }
@@ -42,17 +43,21 @@ class PetsCubit extends Cubit<PetsState> {
   getHistoryDataFromHive() async {
     String data = await HiveDb.getPetHistoryDataFromHive();
     if (data != "") {
-      List<String> temp = data.split(",");
+      final temp = jsonDecode(data);
       List<PetDataModel> pets = [];
+
       for (var i = 0; i < temp.length; i++) {
-        pets.add(PetDataModel.fromJson(jsonDecode(temp[i])));
+        pets.add(PetDataModel.fromJson(temp[i]));
       }
+
       emit(state.copyWith(adoptedPets: pets));
     }
   }
 
   void addPetToHistory(PetDataModel pet) {
-    List<PetDataModel> temp = state.adoptedPets;
+    //make a copy of the list
+    List<PetDataModel> temp = [];
+    temp.addAll(state.adoptedPets);
     temp.add(pet);
     emit(state.copyWith(adoptedPets: temp));
     _setHistoryDataInHive();
@@ -63,5 +68,54 @@ class PetsCubit extends Cubit<PetsState> {
     temp.remove(pet);
     emit(state.copyWith(adoptedPets: temp));
     _setHistoryDataInHive();
+  }
+
+  void filterPets({
+    required String searchedTerm,
+    required String filterAccordingTo,
+  }) {
+    if (searchedTerm == "") {
+      emit(state.copyWith(allPetsViewList: state.allPets));
+      return;
+    }
+    if (searchedTerm.length == 1 && filterAccordingTo != "Category") {
+      emit(state.copyWith(
+          currentIndexOfCategory: -1, allPetsViewList: state.allPets));
+      return;
+    }
+    List<PetDataModel> temp = [];
+    for (var i = 0; i < state.allPets.length; i++) {
+      if (filterAccordingTo == "Name") {
+        if (state.allPets[i].name!
+            .toLowerCase()
+            .contains(searchedTerm.toLowerCase())) {
+          temp.add(state.allPets[i]);
+        }
+      } else if (filterAccordingTo == "Breed") {
+        if (state.allPets[i].breed!
+            .toLowerCase()
+            .contains(searchedTerm.toLowerCase())) {
+          temp.add(state.allPets[i]);
+        }
+      } else if (filterAccordingTo == "Age") {
+        if (state.allPets[i].age!
+            .toString()
+            .toLowerCase()
+            .contains(searchedTerm.toLowerCase())) {
+          temp.add(state.allPets[i]);
+        }
+      } else if (filterAccordingTo == "Category") {
+        if (state.allPets[i].type!
+            .toLowerCase()
+            .contains(searchedTerm.toLowerCase())) {
+          temp.add(state.allPets[i]);
+        }
+      }
+      emit(state.copyWith(allPetsViewList: temp));
+    }
+  }
+
+  changeCurrentPetCategoryIndex(int index) {
+    emit(state.copyWith(currentIndexOfCategory: index));
   }
 }

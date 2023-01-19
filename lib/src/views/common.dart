@@ -177,14 +177,15 @@ class SinglePet extends StatelessWidget {
         child: Stack(
           children: [
             Hero(
-              tag: "1234",
+              tag: petDataModel.image.toString(),
               child: Container(
                   height: 300,
                   width: width,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
-                      image: const DecorationImage(
-                          image: AssetImage("lib/assets/images/dog1.jpg"),
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "lib/assets/images/${petDataModel.image}"),
                           fit: BoxFit.cover))),
             ),
             Positioned(
@@ -223,13 +224,13 @@ class SinglePet extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomText(
-                            "Lucky (Labrador)",
+                            "${petDataModel.name} (${petDataModel.breed})",
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                           CustomText(
-                            "\$89",
+                            "${petDataModel.price} ",
                             fontSize: 15,
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -268,21 +269,18 @@ Widget getSmallDetails({
   );
 }
 
-showAlertDialog(BuildContext context, ConfettiController controllerCenterRight,
+showAlertDialog(
+    BuildContext context,
+    String name,
+    ConfettiController controllerCenterRight,
     ConfettiController controllerCenterLeft) {
-  // set up the button
-  Widget okButton = const Text("OK");
-
-  // set up the AlertDialog
-
-  // show the dialog
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return Stack(
         children: [
           AlertDialog(
-              content: CustomText("You have successfully booked the pet name!"),
+              content: CustomText("You have successfully booked the $name!"),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               )),

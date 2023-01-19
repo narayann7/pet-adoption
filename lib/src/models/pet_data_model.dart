@@ -1,5 +1,4 @@
 class PetDataModel {
-  int? id;
   String? name;
   String? type;
   String? breed;
@@ -13,8 +12,7 @@ class PetDataModel {
   String? image;
 
   PetDataModel(
-      {this.id,
-      this.name,
+      {this.name,
       this.type,
       this.breed,
       this.sex,
@@ -27,7 +25,7 @@ class PetDataModel {
       this.image});
 
   PetDataModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    // id = json['id'];
     name = json['name'];
     type = json['type'];
     breed = json['breed'];
@@ -43,7 +41,7 @@ class PetDataModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
+    // data['id'] = id;
     data['name'] = name;
     data['type'] = type;
     data['breed'] = breed;

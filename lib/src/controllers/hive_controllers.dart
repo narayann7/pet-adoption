@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pet_adoption_app/src/utils/constants.dart';
 
@@ -7,6 +9,7 @@ class HiveDb {
       await clearDataFromHive();
       Box box = await Hive.openBox(petDb);
       box.add(data);
+      log("added$data");
       return true;
     } catch (e) {
       return false;

@@ -16,7 +16,7 @@
     "id": 2,
     "name": "lucy",
     "type": "dog",
-    "breed": "german shepherd",
+    "breed": "golden retriever",
     "sex": "male",
     "owner_name": "bravo",
     "price": "$150",
@@ -76,7 +76,7 @@
     "age": 3,
     "weight": "2kg",
     "location": "uk",
-    "image": "cat1.jpeg"
+    "image": "cat1.jpg"
   },
   {
     "id": 7,
@@ -89,7 +89,7 @@
     "age": 1,
     "weight": "2kg",
     "location": "india",
-    "image": "cat2.jpeg"
+    "image": "cat2.jpg"
   },
   {
     "id": 8,
@@ -102,7 +102,7 @@
     "age": 3,
     "weight": "2kg",
     "location": "usa",
-    "image": "cat3.jpeg"
+    "image": "cat3.jpg"
   },
   {
     "id": 9,
@@ -115,7 +115,7 @@
     "age": 3,
     "weight": "2kg",
     "location": "uk",
-    "image": "cat4.jpeg"
+    "image": "cat4.jpg"
   },
 
   {

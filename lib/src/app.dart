@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
+import 'package:pet_adoption_app/src/controllers/pets_cubit/pets_cubit.dart';
 import 'package:pet_adoption_app/src/utils/coustom_routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_adoption_app/src/views/root.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) {
           return AppGlobalCubit(AppGlobalState.initial(isDark: isDark as bool));
+        }),
+        BlocProvider(create: (context) {
+          return PetsCubit();
         })
       ],
       child: BlocBuilder<AppGlobalCubit, AppGlobalState>(

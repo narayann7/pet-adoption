@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pet_adoption_app/src/controllers/global_cubit/app_global_cubit.dart';
+import 'package:pet_adoption_app/src/controllers/pets_cubit/pets_cubit.dart';
 import 'package:pet_adoption_app/src/views/history.dart';
 import 'package:pet_adoption_app/src/views/home.dart';
 
@@ -14,7 +15,8 @@ class Root extends StatefulWidget {
     return MaterialPageRoute(
         settings: const RouteSettings(name: "/"),
         builder: (c) {
-          return const Root();
+          return BlocProvider(
+              create: (context) => PetsCubit(), child: const Root());
         });
   }
 
@@ -34,6 +36,15 @@ class _RootState extends State<Root> {
       text: 'History',
     ),
   ];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<PetsCubit>().getDataFromApi();
+      context.read<PetsCubit>().getHistoryDataFromHive();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
