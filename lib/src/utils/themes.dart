@@ -4,10 +4,10 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: Colors.white,
-    backgroundColor: const Color(0xffFAF9FA),
+    backgroundColor: Colors.white,
     primaryColorDark: const Color(0xff2C3E50),
-    cardColor: const Color(0xffFFFFFF),
-    dividerColor: const Color(0xffDCE3EB),
+    cardColor: const Color.fromARGB(255, 230, 228, 232),
+    dividerColor: const Color.fromARGB(255, 185, 192, 199),
     bottomSheetTheme:
         BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
     iconTheme: const IconThemeData(color: Color(0xff333F52)),
@@ -21,12 +21,12 @@ class AppTheme {
 
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: const Color(0xff01020A),
+    primaryColor: const Color(0xff7C77B9),
     primaryColorDark: const Color(0xffFFFFFF),
-    dividerColor: const Color(0xff33353F),
+    dividerColor: const Color.fromARGB(255, 82, 85, 99),
     iconTheme: const IconThemeData(color: Color(0xffffffff)),
     backgroundColor: const Color(0xff171820),
-    cardColor: const Color(0xff22232E),
+    cardColor: const Color.fromARGB(255, 45, 46, 60),
     bottomSheetTheme:
         BottomSheetThemeData(backgroundColor: Colors.black.withOpacity(0)),
     textTheme: const TextTheme(

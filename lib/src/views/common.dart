@@ -192,8 +192,9 @@ class SinglePet extends StatelessWidget {
               bottom: 0,
               child: GlassContainer(
                 borderRadius: BorderRadius.circular(25),
-                blur: 8,
-                opacity: 0.1,
+                blur: 4,
+                opacity: 0.2,
+                color: Theme.of(context).backgroundColor.withOpacity(0.5),
                 child: Container(
                     width: width,
                     height: 90,
@@ -280,7 +281,15 @@ showAlertDialog(
       return Stack(
         children: [
           AlertDialog(
-              content: CustomText("You have successfully booked the $name!"),
+              backgroundColor: Theme.of(context).cardColor,
+              content: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: CustomText(
+                  "You’ve now adopted $name 🎉",
+                  fontWeight: FontWeight.bold,
+                  maxLines: 2,
+                ),
+              ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               )),
@@ -288,12 +297,10 @@ showAlertDialog(
             alignment: Alignment.centerLeft,
             child: ConfettiWidget(
               confettiController: controllerCenterLeft,
-              blastDirection: 0, // radial value - RIGHT
+              blastDirection: 0,
               emissionFrequency: 0.6,
-              minimumSize: const Size(10,
-                  10), // set the minimum potential size for the confetti (width, height)
-              maximumSize: const Size(50,
-                  50), // set the maximum potential size for the confetti (width, height)
+              minimumSize: const Size(10, 10),
+              maximumSize: const Size(50, 50),
               numberOfParticles: 1,
               gravity: 0.1,
             ),
@@ -302,12 +309,10 @@ showAlertDialog(
             alignment: Alignment.centerRight,
             child: ConfettiWidget(
               confettiController: controllerCenterRight,
-              blastDirection: pi, // radial value - RIGHT
+              blastDirection: pi,
               emissionFrequency: 0.6,
-              minimumSize: const Size(10,
-                  10), // set the minimum potential size for the confetti (width, height)
-              maximumSize: const Size(50,
-                  50), // set the maximum potential size for the confetti (width, height)
+              minimumSize: const Size(10, 10),
+              maximumSize: const Size(50, 50),
               numberOfParticles: 1,
               gravity: 0.1,
             ),

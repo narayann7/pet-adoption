@@ -24,6 +24,14 @@ class PetsCubit extends Cubit<PetsState> {
       for (var i = 0; i < petsjsonDecoded.length; i++) {
         pets.add(PetDataModel.fromJson(petsjsonDecoded[i]));
       }
+      for (var i = 0; i < state.adoptedPets.length; i++) {
+        for (var j = 0; j < pets.length; j++) {
+          if (state.adoptedPets[i].image == pets[j].image) {
+            pets[j].isAdopted = true;
+            break;
+          }
+        }
+      }
       emit(state.copyWith(
           allPets: pets, allPetsViewList: pets, loadState: AppState.success));
     } catch (e) {
@@ -55,6 +63,13 @@ class PetsCubit extends Cubit<PetsState> {
   }
 
   void addPetToHistory(PetDataModel pet) {
+    pet.isAdopted = true;
+    for (var i = 0; i < state.allPets.length; i++) {
+      if (state.allPets[i].image == pet.image) {
+        state.allPets[i].isAdopted = true;
+        break;
+      }
+    }
     //make a copy of the list
     List<PetDataModel> temp = [];
     temp.addAll(state.adoptedPets);
@@ -64,6 +79,13 @@ class PetsCubit extends Cubit<PetsState> {
   }
 
   void removePetFromHistory(PetDataModel pet) {
+    pet.isAdopted = false;
+    for (var i = 0; i < state.allPets.length; i++) {
+      if (state.allPets[i].image == pet.image) {
+        state.allPets[i].isAdopted = false;
+        break;
+      }
+    }
     List<PetDataModel> temp = state.adoptedPets;
     temp.remove(pet);
     emit(state.copyWith(adoptedPets: temp));

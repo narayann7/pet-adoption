@@ -110,7 +110,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                             height: MediaQuery.of(context).size.height * 0.2,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              boxShadow: kElevationToShadow[8],
+                              // boxShadow: kElevationToShadow[8],
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20)),
                               color: Theme.of(context).backgroundColor,
@@ -141,6 +141,9 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 2),
@@ -164,7 +167,7 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 15,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -181,7 +184,8 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                                     getSmallDetails(
                                         context: context,
                                         title: "Breed",
-                                        details: "Persion"),
+                                        details:
+                                            "${widget.petDataModel.breed}"),
                                     getSmallDetails(
                                         context: context,
                                         title: "Weight",
@@ -247,34 +251,47 @@ class _PetDetailsViewState extends State<PetDetailsView> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                showAlertDialog(
-                                  context,
-                                  widget.petDataModel.name.toString(),
-                                  _controllerCenterLeft,
-                                  _controllerCenterRight,
+                              if (widget.petDataModel.isAdopted == false) {
+                                context
+                                    .read<PetsCubit>()
+                                    .addPetToHistory(widget.petDataModel);
+                                setState(() {
+                                  showAlertDialog(
+                                    context,
+                                    widget.petDataModel.name.toString(),
+                                    _controllerCenterLeft,
+                                    _controllerCenterRight,
+                                  );
+                                  _controllerCenterLeft.play();
+                                  _controllerCenterRight.play();
+                                });
+                              } else {
+                                //snakbar
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      "Already Adopted",
+                                    ),
+                                  ),
                                 );
-                                _controllerCenterLeft.play();
-                                _controllerCenterRight.play();
-                              });
+                              }
                             },
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.08,
                               width: MediaQuery.of(context).size.width,
-                              decoration: const BoxDecoration(
-                                color: Colors.amber,
+                              decoration: BoxDecoration(
+                                color: widget.petDataModel.isAdopted == true
+                                    ? Colors.grey
+                                    : const Color(0xff7C77B9),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                                    const BorderRadius.all(Radius.circular(20)),
                               ),
                               child: Center(
                                 child: CustomText(
                                   "Adopt Me",
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .color,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),

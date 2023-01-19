@@ -1,5 +1,5 @@
 const mythemekey = "myTheme";
-const appFont = 'Poppins';
+const appFont = 'Lexend';
 const String petDb = "USER_DB";
 
 enum FontStyle {

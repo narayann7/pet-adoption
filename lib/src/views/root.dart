@@ -26,22 +26,12 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   final List<Widget> _tabs = [const HomeView(), const HistoryView()];
-  final List<GButton> _tabsIcons = const [
-    GButton(
-      icon: LineIcons.home,
-      text: 'Home',
-    ),
-    GButton(
-      icon: LineIcons.history,
-      text: 'History',
-    ),
-  ];
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<PetsCubit>().getDataFromApi();
       context.read<PetsCubit>().getHistoryDataFromHive();
+      context.read<PetsCubit>().getDataFromApi();
     });
     super.initState();
   }
@@ -62,7 +52,7 @@ class _RootState extends State<Root> {
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 25),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.circular(100),
               boxShadow: [
                 BoxShadow(
@@ -78,14 +68,26 @@ class _RootState extends State<Root> {
                 rippleColor: Colors.grey[300]!,
                 hoverColor: Colors.grey[100]!,
                 gap: 8,
-                activeColor: Colors.black,
                 iconSize: 24,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.grey[100]!,
-                color: Colors.black,
-                tabs: _tabsIcons,
+                tabBackgroundColor: Theme.of(context).cardColor,
+                color: Theme.of(context).textTheme.headline1!.color!,
+                tabs: [
+                  GButton(
+                    icon: LineIcons.home,
+                    text: 'Home',
+                    textColor: Theme.of(context).textTheme.headline1!.color!,
+                    iconColor: Theme.of(context).textTheme.headline1!.color!,
+                  ),
+                  GButton(
+                    icon: LineIcons.history,
+                    text: 'History',
+                    textColor: Theme.of(context).textTheme.headline1!.color!,
+                    iconColor: Theme.of(context).textTheme.headline1!.color!,
+                  ),
+                ],
                 selectedIndex: state.buttomNavIndex,
                 onTabChange: (index) {
                   context.read<AppGlobalCubit>().changeBottomNavIndex(index);

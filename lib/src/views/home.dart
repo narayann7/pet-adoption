@@ -76,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context).cardColor,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Row(
                                   children: [
@@ -139,7 +139,7 @@ class _HomeViewState extends State<HomeView> {
                                 fontSize: 20,
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 15,
                               ),
                               SizedBox(
                                 height: 40,
@@ -176,16 +176,13 @@ class _HomeViewState extends State<HomeView> {
                                             color:
                                                 state.currentIndexOfCategory !=
                                                         index
-                                                    ? Colors.grey[200]
+                                                    ? Theme.of(context)
+                                                        .backgroundColor
                                                     : Theme.of(context)
-                                                        .primaryColor,
+                                                        .cardColor,
                                             border: Border.all(
-                                                color:
-                                                    state.currentIndexOfCategory ==
-                                                            index
-                                                        ? Theme.of(context)
-                                                            .dividerColor
-                                                        : Colors.transparent),
+                                                color: Theme.of(context)
+                                                    .dividerColor),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: Center(
@@ -194,7 +191,10 @@ class _HomeViewState extends State<HomeView> {
                                                     state.currentIndexOfCategory !=
                                                             index
                                                         ? Colors.grey[600]
-                                                        : Colors.black)),
+                                                        : Theme.of(context)
+                                                            .textTheme
+                                                            .headline1!
+                                                            .color!)),
                                       ),
                                     );
                                   },

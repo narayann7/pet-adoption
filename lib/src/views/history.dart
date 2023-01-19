@@ -37,7 +37,10 @@ class HistoryView extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          moveToNextScreen(context, PetDetailsView.routeName);
+                          moveToNextScreenWithArguments(
+                              context,
+                              PetDetailsView.routeName,
+                              state.adoptedPets[index]);
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
@@ -46,7 +49,7 @@ class HistoryView extends StatelessWidget {
                           height: 100,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).cardColor,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20)),
                           ),
